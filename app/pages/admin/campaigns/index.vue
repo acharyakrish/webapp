@@ -16,12 +16,12 @@
         <p>Donation and financial campaign records</p>
       </div>
       <a
-        href="https://docs.google.com/spreadsheets/d/1PSYeq6WedTgd_zMmUK6y4kEAUMB-6TFV/edit?usp=sharing&amp;ouid=103595782676042291481&amp;rtpof=true&amp;sd=true"
+        href="https://docs.google.com/spreadsheets/d/1PSYeq6WedTgd_zMmUK6y4kEAUMB-6TFV/preview"
         target="_blank"
         rel="noopener"
         class="record-link"
       >
-        Open spreadsheet
+        View spreadsheet
         <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" />
       </a>
     </section>
