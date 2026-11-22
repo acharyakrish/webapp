@@ -40,6 +40,10 @@
           <font-awesome-icon :icon="['fas', 'graduation-cap']" />
           Education
         </NuxtLink>
+        <NuxtLink to="/admin/campaigns" class="admin-nav-link">
+          <font-awesome-icon :icon="['fas', 'bullhorn']" />
+          Relief Campaigns
+        </NuxtLink>
         <NuxtLink v-if="auditUnlocked" to="/admin/audit" class="admin-nav-link">
           <font-awesome-icon :icon="['fas', 'clock-rotate-left']" />
           Audit Log

@@ -191,6 +191,7 @@ const NAV: NavItem[] = [
     ],
   },
   {type: 'link', label: 'Education', to: '/education', icon: ['fas', 'graduation-cap']},
+  {type: 'link', label: 'Relief Campaigns', to: '/campaigns', icon: ['fas', 'bullhorn']},
   {type: 'link', label: 'NeSFM-Wear', to: '/shop', icon: ['fas', 'bag-shopping']},
   {
     type: 'group',
