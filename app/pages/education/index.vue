@@ -43,8 +43,25 @@
 
     <section v-else class="edu-items">
       <article v-for="item in items" :key="item.id" class="edu-card">
-        <div v-if="images[item.id]" class="edu-card-flyer">
-          <ZoomImage :src="images[item.id]!" :alt="item.title" img-class="edu-flyer-img" />
+        <div v-if="images[item.id]?.length" class="edu-card-flyer">
+          <ZoomImage :src="images[item.id]![0]" :alt="item.title" img-class="edu-flyer-img" />
+          <div
+            v-if="images[item.id]!.length > 1"
+            class="edu-card-gallery"
+            :aria-label="`${item.title} photos`"
+          >
+            <div
+              v-for="(src, index) in images[item.id]!.slice(1)"
+              :key="src"
+              class="edu-gallery-item"
+            >
+              <ZoomImage
+                :src="src"
+                :alt="`${item.title} classroom photo ${index + 1}`"
+                img-class="edu-gallery-img"
+              />
+            </div>
+          </div>
         </div>
 
         <div class="edu-card-body">
@@ -140,7 +157,7 @@ interface EduItem {
 
 const loading = ref(true);
 const items = ref<EduItem[]>([]);
-const images = ref<Record<string, string | null>>({});
+const images = ref<Record<string, string[]>>({});
 const sessions = ref<Record<string, Session[]>>({});
 const banner = ref<RegisterBanner>(DEFAULT_SESSION.banner);
 
@@ -166,7 +183,9 @@ onMounted(async () => {
       anchor: rec?.start_date ?? null,
       rec,
     });
-    images.value[e.id] = e.image?.[0] ? getPublicImageUrl(NeSFM_GENERIC_BUCKET, e.image[0]) : null;
+    images.value[e.id] = (e.image ?? [])
+      .filter((path: string | null | undefined): path is string => Boolean(path))
+      .map((path: string) => getPublicImageUrl(NeSFM_GENERIC_BUCKET, path));
     sessions.value[e.id] = rec ? upcomingSessions(rec.start_date, rec.freq, rec.cancelled_dates ?? [], 5) : [];
   }
   loading.value = false;
@@ -355,6 +374,23 @@ function formatSession(date: Date): string {
   height: auto;
 }
 
+.edu-card-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.edu-gallery-item :deep(.zoom-image-wrap) {
+  border-radius: 0.6rem;
+}
+
+.edu-gallery-item :deep(.edu-gallery-img) {
+  width: 100%;
+  height: 9rem;
+  object-fit: cover;
+}
+
 .edu-card-head {
   display: flex;
   align-items: center;
@@ -504,6 +540,9 @@ function formatSession(date: Date): string {
   }
   .edu-title {
     font-size: 1.4rem;
+  }
+  .edu-gallery-item :deep(.edu-gallery-img) {
+    height: 7.5rem;
   }
 }
 </style>
