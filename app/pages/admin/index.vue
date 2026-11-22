@@ -42,6 +42,11 @@
         <span class="admin-card-label">Education</span>
         <span class="admin-card-desc">Programs &amp; Pathsala registrations</span>
       </NuxtLink>
+      <NuxtLink to="/admin/campaigns" class="admin-card">
+        <font-awesome-icon :icon="['fas', 'bullhorn']" class="admin-card-icon" />
+        <span class="admin-card-label">Relief Campaigns</span>
+        <span class="admin-card-desc">Private campaign records</span>
+      </NuxtLink>
       <NuxtLink v-if="auditUnlocked" to="/admin/audit" class="admin-card">
         <font-awesome-icon :icon="['fas', 'clock-rotate-left']" class="admin-card-icon" />
         <span class="admin-card-label">Audit Log</span>
